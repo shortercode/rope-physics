@@ -1,9 +1,9 @@
 class Segment {
 
-	constructor (parent, length, x, y, z) {
+	constructor (parent, length, root) {
 		this.parent = parent;
 		this.length = length || 0;
-		this.start = parent? parent.end : new Vector(x, y, z);
+		this.start = parent? parent.end : root;
 		this.end = new Vector();
 	}
 
@@ -15,7 +15,11 @@ class Segment {
 	}
 
 	moveTowards (v) {
-
+		this.end.copy(v);
+		this.start
+			.sub(v)
+			.normalize()
+			.multiplyScalar(this.length);
 	}
 
 }
