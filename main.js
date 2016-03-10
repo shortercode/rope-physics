@@ -94,7 +94,7 @@ const redraw = (t) => {
 
 	mouse.x = (distance * Math.cos(t / 800));
 	mouse.y = (distance * Math.sin(t / 800));
-	mouse.z = 510;
+	mouse.z = 310;
 	//mouse.z = (distance * Math.cos(t / 1600)) + 512;
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -151,7 +151,7 @@ const tack = new Vector(0, 0, 200);
 	}
 }());
 
-let distance = 500;
+let distance = 200;
 
 resize(1024, 1024);
 document.body.appendChild(canvas);
