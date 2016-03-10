@@ -1,17 +1,10 @@
+'use strict';
 class Segment {
 
-	constructor (parent, length, root) {
-		this.parent = parent;
+	constructor (length, root) {
 		this.length = length || 0;
-		this.start = parent? parent.end : root;
+		this.start = root;
 		this.end = new Vector();
-	}
-
-	angleTowards (v) {
-		this.end.copy(v)
-			.sub(this.start)
-			.normalize()
-			.multiplyScalar(this.length);
 	}
 
 	moveTowards (v) {
@@ -19,7 +12,17 @@ class Segment {
 		this.start
 			.sub(v)
 			.normalize()
-			.multiplyScalar(this.length);
+			.multiplyScalar(this.length)
+			.add(v);
+	}
+
+	moveBackwards (v) {
+		this.start.copy(v);
+		this.end
+			.sub(v)
+			.normalize()
+			.multiplyScalar(this.length)
+			.add(v);
 	}
 
 }

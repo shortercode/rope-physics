@@ -1,3 +1,4 @@
+'use strict';
 class Vector {
 
 	constructor (x, y, z) {
@@ -126,7 +127,7 @@ class Vector {
 	}
 
 	clampLength (min, max) {
-		var length = this.length();
+		const length = this.length();
 		this.multiplyScalar(Math.max(min, Math.min(max, length)) / length);
 		return this;
 	}
@@ -203,7 +204,7 @@ class Vector {
 	}
 
 	cross (v) {
-		var x = this.x, y = this.y, z = this.z;
+		const x = this.x, y = this.y, z = this.z;
 		this.x = y * v.z - z * v.y;
 		this.y = z * v.x - x * v.z;
 		this.z = x * v.y - y * v.x;
@@ -211,8 +212,8 @@ class Vector {
 	}
 
 	crossVectors (a, b) {
-		var ax = a.x, ay = a.y, az = a.z;
-		var bx = b.x, by = b.y, bz = b.z;
+		const ax = a.x, ay = a.y, az = a.z;
+		const bx = b.x, by = b.y, bz = b.z;
 		this.x = ay * bz - az * by;
 		this.y = az * bx - ax * bz;
 		this.z = ax * by - ay * bx;
@@ -220,7 +221,7 @@ class Vector {
 	}
 
 	angleTo (v) {
-		var theta = this.dot(v) / (this.length() * v.length());
+		const theta = this.dot(v) / (this.length() * v.length());
 		return Math.acos(Math.max(-1, Math.min(1, theta)));
 	}
 
@@ -229,9 +230,9 @@ class Vector {
 	}
 
 	distanceToSquared (v) {
-		var dx = this.x - v.x;
-		var dy = this.y - v.y;
-		var dz = this.z - v.z;
+		const dx = this.x - v.x;
+		const dy = this.y - v.y;
+		const dz = this.z - v.z;
 		return dx * dx + dy * dy + dz * dz;
 	}
 
@@ -260,6 +261,19 @@ class Vector {
 		array[offset + 1] = this.y;
 		array[offset + 2] = this.z;
 		return array;
+	}
+
+	applyMatrix (m) {
+
+		const x = this.x, y = this.y, z = this.z;
+		const e = m.elements;
+
+		this.x = e[0] * x + e[4] * y + e[8] * z + e[12];
+		this.y = e[1] * x + e[5] * y + e[9] * z + e[13];
+		this.z = e[2] * x + e[6] * y + e[10] * z + e[14];
+
+		return this;
+
 	}
 
 }
