@@ -85,10 +85,9 @@ class Line {
 
 }
 
-const UP = new Vector(0, 1, 0);
+const UP = new Vector(1, 1, 0).normalize();
 const redraw = (t) => {
 	requestAnimationFrame(redraw);
-
 	cam.rotation.setFromAxisAngle(UP, t / 1600);
 	cam.update();
 
@@ -107,6 +106,10 @@ const redraw = (t) => {
 	while (i--) {
 		trails[i].render(ctx);
 	}
+	//deopt badness
+	//for(let r of trails) {
+	//	r.render(ctx);
+	//}
 }
 
 const resize = (width, height) => {
@@ -142,7 +145,7 @@ const tack = new Vector(0, 0, 200);
 		r = new Rope(
 			i * 3,
 			Math.sqrt((i * i) + (400 * 400)),
-			tack,//rope.segments[i].end,
+			null,//rope.segments[i].end,
 			rope.segments[i].end
 		);
 		l = new Line(r, cam);
